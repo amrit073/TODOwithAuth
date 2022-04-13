@@ -46,8 +46,8 @@ const verifyCallback = (accessToken, refreshToken, profile, done) => {
  		useUnifiedTopology: true,
  	}, (err)=>{
  		if (err) return err
- 		app.listen(3000, ()=>{
- 			console.log('started listenig at port 3000');
+ 		app.listen(process.env.port  || 3000, ()=>{
+ 			console.log('started listenig at port ');
  			
  		})
  	})
