@@ -10,6 +10,7 @@ const cookieSession = require('cookie-session')
 const mongoose = require('mongoose')
 const myrouter = require('./routes/requests.route')
 const {getInit} = require('./controllers/allreqs')
+const cors = require('cors')
 
 const config = {
 	callbackURL: '/auth/google/callback',
@@ -62,8 +63,8 @@ passport.serializeUser((user, done)=>{
 passport.deserializeUser((id, done)=>{
 	done(null, id)
 })
-
-app.use(helmet.contentSecurityPolicy())
+app.use(cors())
+app.use(helmet({crossOriginEmbedderPolicy: false}))
 
 app.use(cookieSession({
 	name:'session',

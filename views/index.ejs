@@ -44,8 +44,9 @@
       <div class="row">
         <div class="col-lg-7 col-md-7 col-sm-7">
 
-          <input type="text">
-            <class="form-control" id="item">
+          <input type="text" onkeyup=
+            "toggleButton(this, 'submit')"
+            class="form-control" id="item">
         </div>
 
         <div class="col-lg-5 col-md-5 col-sm-5">
@@ -61,7 +62,7 @@
 <% data.todos.forEach((e)=>{ %>
 <% hide='', bg='' ; if (e.isCompleted) { hide = 'hide'; bg = 'bg' } %>
 
-<li class="list-group-item <%=e._id %> <%=bg %> "> <%=e.task %><button class="btn-danger btn btn-sm float-right delete " name="<%=e._id%>">Delete</button><button class="btn-success btn btn-sm float-right done <%=hide %>" name="<%=e._id%>">DONE</button></li> 
+<li class="list-group-item <%=e._id %> <%=bg %> "> <%=e.task %><button class="btn-danger btn btn-sm float-right delete " name="<%=e._id%>">Delete</button><button class="btn-success btn btn-sm float-right done " name="<%=e._id%>">DONE</button></li> 
 <% }) %>
 </ul>
     </form>
