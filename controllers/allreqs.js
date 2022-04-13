@@ -19,42 +19,48 @@ const TODO = require('../models/todos.model')
 // 	})
 // }
 
-const getInit = (req, res) =>{
+const getInit = async (req, res) =>{
 	gid = req.user 
 	console.log(gid);
-	
-
-	TODO.findOne({googleId:gid},{},{},(err,result)=>{
-		console.log(result);
-		if (err) return err;
-		if (!result) return res.render('indexplain', {gid:gid})
+	result = await TODO.findOne({googleId:gid},{},{}).sort({"todos._id":-1})
+	if (!result) return res.render('indexplain', {gid:gid})
 		console.log('vaxa ta');
+	result.todos.sort((a,b)=>{
+		if (a._id < b._id ) {return 1} else {return -1}
+	});
+	
 			
 		res.render('index', {data:result})
-	}
-	)
+
 }
 
 
-const addTask = (req, res) => {
-	console.log(req.body);
-	
+
+
+const addTask = async (req, res) => {
+	console.log('the body is',req.body);
 	const { gid, task } = req.body       //get google id and task and append it to respective database
 	var to_add = { task: task, isCompleted: false }
-	TODO.updateOne({ googleId: gid }, { $push: { todos: to_add } }, {upsert:true}
-		, (err, result) => {
-			if (err) { console.log(err); }
-	
-			res.json({"result":result})
-		})
+	data= await TODO.findOneAndUpdate({ googleId: gid }, { $push: { todos: to_add } }, {upsert:true, returnDocument: "after",returnNewDocument:true})
+	if(data){
+	lastelem = data.todos[data.todos.length-1]
+	console.log(lastelem);
+	res.send(lastelem)
+	}
 }
 
 
 const updateTask = (req, res) => {
 	const { gid, taskid } = req.body   //get gid and taskid , change its iscompleted to true
-
-	TODO.findOneAndUpdate({ "googleId": gid, "todos.id": taskid }, { "$set": { "todos.$.isCompleted": "true" } }, {}, (err, result) => {
-		res.send(result)
+	console.log(req.body);
+	
+	TODO.findOneAndUpdate({ "googleId": gid, "todos._id": taskid }, { "$set": { "todos.$.isCompleted": "true" } }, {returnDocument: "after"}, (err, result) => {
+		if(err) return console.log(err);
+		if(result){
+	lastelem = result.todos[result.todos.length-1]
+	console.log(lastelem);
+	res.send(lastelem)
+	}
 	})
 }
 
@@ -62,11 +68,15 @@ const updateTask = (req, res) => {
 const deleteTask = (req, res) => {    //get gid, taskid and remove respectice task
 	const { gid, taskid } = req.body
 
-	TODO.findOneAndUpdate({ "googleId": gid }, { "$pull": { "todos": { "id": taskid } } }, {}, (err, result) => {
+	TODO.findOneAndUpdate({ "googleId": gid }, { "$pull": { "todos": { "_id": taskid } } }, {returnDocument: "after"}, (err, result) => {
 		if (err) {
 			return console.log(err);
 		}
-		res.send(result)
+		if(result){
+	lastelem = result.todos[result.todos.length-1]
+	console.log(lastelem);
+	res.send(lastelem)
+	}
 	})
 }
 // const getTask = (req, res) => {
@@ -94,3 +104,10 @@ const markTask = (req, res) => {
 
 
 module.exports = { addTask, getTask, updateTask, markTask, deleteTask, getInit}
+
+
+,(err,result)=>{
+		// console.log(result);
+		if (err) return err;
+		
+	}

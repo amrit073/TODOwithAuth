@@ -88,8 +88,9 @@ app.get('/login', (req, res) => {
 	res.sendFile(path.join(__dirname, '/views/login.html'))
 })
 
-app.set('view engine', 'ejs')
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
+app.set('view engine', 'ejs')
 app.use('/api/v1', myrouter)
 
 app.use((req, res, next)=>{

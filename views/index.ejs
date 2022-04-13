@@ -11,6 +11,7 @@
     integrity=
 "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
 
   <script src="index.js"></script>
 
@@ -18,7 +19,6 @@
 </head>
 
 <body id="<%=data.googleId %>">
-  <%=data.googleId %>
   <header class="bg-success text-white p-5">
     <div class="container">
       <div class="row">
@@ -57,12 +57,14 @@
     </form>
 
     <h3 class="mt-4">Tasks</h3>
-<% data.todos.forEach((e)=>{ %>
-
-<li class="list-group-item"> <%=e.task %><button class="btn-danger btn btn-sm float-right delete" name="<%=e._id%>">Delete</button><button class="btn-success btn btn-sm float-right edit" name="<%=e._id%>">DONE</button></li> 
-<% }) %>
     <form id="addForm">
-      <ul class="list-group" id="items"></ul>
+      <ul class="list-group" id="items">
+<% data.todos.forEach((e)=>{ %>
+<% hide='', bg='' ; if (e.isCompleted) { hide = 'hide'; bg = 'bg' } %>
+
+<li class="list-group-item <%=e._id %> <%=bg %> "> <%=e.task %><button class="btn-danger btn btn-sm float-right delete " name="<%=e._id%>">Delete</button><button class="btn-success btn btn-sm float-right done <%=hide %>" name="<%=e._id%>">DONE</button></li> 
+<% }) %>
+</ul>
     </form>
   </div>
 </body>
