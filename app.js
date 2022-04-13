@@ -1,7 +1,7 @@
 
 const express = require('express')
 const app = express()
-// const helmet = require('helmet')
+const helmet = require('helmet')
 const passport = require('passport')
 const { Strategy } = require('passport-google-oauth2')
 const path = require('path')
@@ -63,7 +63,7 @@ passport.deserializeUser((id, done)=>{
 	done(null, id)
 })
 
-// app.use(helmet.contentSecurityPolicy())
+app.use(helmet.contentSecurityPolicy())
 
 app.use(cookieSession({
 	name:'session',
