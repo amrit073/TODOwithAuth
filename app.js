@@ -91,14 +91,16 @@ app.get('/login', (req, res) => {
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.set('view engine', 'ejs')
-app.use('/api/v1', myrouter)
-
 app.use((req, res, next)=>{
 	if (!req.user) { return res.redirect('/login') }
 	next()
 }
 )
+app.set('view engine', 'ejs')
+
+app.use('/api/v1', myrouter)
+
+
 
 app.use(express.static(__dirname + '/views/'))
 // app.get('/auth/google', passport.authenticate('google',{
