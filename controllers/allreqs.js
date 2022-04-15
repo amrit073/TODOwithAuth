@@ -75,7 +75,7 @@ const deleteTask = (req, res) => {    //get gid, taskid and remove respectice ta
 		if(result){
 	lastelem = result.todos[result.todos.length-1]
 	console.log(lastelem);
-	res.send(lastelem)
+	res.send('deleted')
 	}
 	})
 }
