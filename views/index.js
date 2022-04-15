@@ -30,6 +30,7 @@ const fetchnadd = async (e) => {
     body: JSON.stringify({ gid: gid, task: newItem })
   }).then(resp => resp.json()).then((res) => {
     inithtml = document.getElementById('items').innerHTML
+    // if (res.isCompleted) { hide = 'hide'; bg = 'bg' }
     to_add = `<li class="list-group-item  ${res._id} ">${newItem}<button class="btn-danger btn btn-sm float-right delete" name="${res._id}">Delete</button>
     <button class="btn-success btn btn-sm float-right done" name="${res._id}">DONE</button></li>`
     document.getElementById('items').innerHTML = to_add + inithtml
@@ -56,8 +57,7 @@ const gid = document.getElementsByTagName('body')[0].getAttribute('id')
       },
       body: JSON.stringify({ gid: gid, taskid: taskId })
     }
-    ).then(res=>res.json()
-    ).then((data)=>console.log(data)
+    ).then(res=>console.log('deleted')
     ).then(deletethis(taskId)
     ).then(document.getElementById("item").value='')
     .catch(err=>console.log(err)
