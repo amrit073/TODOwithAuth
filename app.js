@@ -97,15 +97,15 @@ app.use((req, res, next)=>{
 }
 )
 app.set('view engine', 'ejs')
-<<<<<<< HEAD
-app.use('/api/v1', myrouter)
-
-=======
 
 app.use('/api/v1', myrouter)
 
 
->>>>>>> origin/master
+
+app.use('/api/v1', myrouter)
+
+
+
 
 app.use(express.static(__dirname + '/views/'))
 // app.get('/auth/google', passport.authenticate('google',{
