@@ -62,7 +62,7 @@
 <% data.todos.forEach((e)=>{ %>
 <% hide='', bg='' ; if (e.isCompleted) { hide = 'hide'; bg = 'bg' } %>
 
-<li class="list-group-item <%=e._id %> <%=bg %> "> <%=e.task %><button class="btn-danger btn btn-sm float-right delete " name="<%=e._id%>">Delete</button><button class="btn-success btn btn-sm float-right done " name="<%=e._id%>">DONE</button></li> 
+<li class="list-group-item <%=e._id %> <%=bg %> "> <%=e.task %><button class="btn-danger btn btn-sm float-right delete " name="<%=e._id%>">Delete</button><button class="btn-success btn btn-sm float-right done  <%=hide %>" name="<%=e._id%>">DONE</button></li> 
 <% }) %>
 </ul>
     </form>
