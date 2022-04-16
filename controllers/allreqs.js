@@ -23,8 +23,11 @@ const getInit = async (req, res) =>{
 	gid = req.user 
 	console.log(gid);
 	result = await TODO.findOne({googleId:gid},{},{}).sort({"todos._id":-1})
-	if (!result) return res.render('indexplain', {gid:gid})
-		console.log('vaxa ta');
+	if (!result) {
+		result = {}
+		result.todos = []
+		res.render('index', {data:result})
+	}	
 	result.todos.sort((a,b)=>{
 		if (a._id < b._id ) {return 1} else {return -1}
 	});
@@ -105,9 +108,3 @@ const markTask = (req, res) => {
 
 module.exports = { addTask, getTask, updateTask, markTask, deleteTask, getInit}
 
-
-,(err,result)=>{
-		// console.log(result);
-		if (err) return err;
-		
-	}
