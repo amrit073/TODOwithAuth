@@ -91,6 +91,7 @@ app.get('/login', (req, res) => {
 
 app.get('/logout', (req, res) => {
 	req.logout()
+	res.send('logged out')
 })
 
 app.use(express.json())
