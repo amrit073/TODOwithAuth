@@ -106,13 +106,6 @@ app.set('view engine', 'ejs')
 
 app.use('/api/v1', myrouter)
 
-
-
-app.use('/api/v1', myrouter)
-
-
-
-
 app.use(express.static(__dirname + '/views/'))
 // app.get('/auth/google', passport.authenticate('google',{
 // 	scope:['email']
